@@ -11,7 +11,7 @@ def constrain(val, range_min, range_max):
         return val
 
 
-def map(val, old_min, old_max, new_min, new_max):
+def convert(val, old_min, old_max, new_min, new_max):
     """
     Converts range
     """

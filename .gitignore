@@ -1,6 +1,7 @@
 ### Python template
 
 .idea/
+blockchain/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
