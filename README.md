@@ -24,11 +24,12 @@ Simple Python scripts by kan.
 <a id="chapter-1"></a>
 ## RoadMap
 
-* something
+1. Script Decodes morse sound signals 
 
 
 <a id="chapter-2"></a>
-<a src="/misc/7_dict_to_object/"><h2>Dict to Object</h2></a>
+<h2>Dict to Object</h2>
+<a src="/misc/7_dict_to_object/">-></a>
 
 Example:
 ```python
@@ -45,7 +46,8 @@ print(ob.b.c)  # 2
 
 
 <a id="chapter-3"></a>
-<a src="/misc/9_morse/"><h2>Morse</h2></a>
+<h2>Morse</h2>
+<a src="/misc/9_morse/">-></a>
 
 Encodes text to and from morse code:\
 ```--.. -. -.--``` -> ```zny```
