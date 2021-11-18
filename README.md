@@ -47,7 +47,7 @@ print(ob.b.c)  # 2
 
 <a id="chapter-3"></a>
 <h2>Morse</h2>
-<a src="/misc/9_morse/">-></a>
+<a src="misc/9_morse/">asdasd</a>
 
 Encodes text to and from morse code:\
 ```--.. -. -.--``` -> ```zny```
