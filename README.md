@@ -28,7 +28,7 @@ Simple Python scripts by kan.
 
 
 <a id="chapter-2"></a>
-[<h2>Dict to Object</h2>](misc/7_dict_to_object/)
+[<h2>Dict to Object</h2>](/misc/7_dict_to_object/)
 
 Example:
 ```python
