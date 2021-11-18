@@ -3,7 +3,7 @@ from morse_text import encode
 from src.alphabet import *
 
 
-def to_wav(text: str, speed=1.0, filename="morse.wav"):
+def text_to_wav(text: str, speed=1.0, filename="morse.wav"):
 
     w = Wave(filename)
     dur = 150*speed
@@ -22,4 +22,4 @@ def to_wav(text: str, speed=1.0, filename="morse.wav"):
 
 
 if __name__ == '__main__':
-    to_wav(encode("сос сос сос", alphabet=rus), speed=0.5)
+    text_to_wav(encode("сос сос сос", alphabet=rus), speed=0.5)

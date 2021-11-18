@@ -28,6 +28,6 @@ def decode(text: str, alphabet: dict = eng) -> str:
 
 
 if __name__ == '__main__':
-    encoded_text = encode("привет asd", alphabet=rus)
+    encoded_text = encode("сос сос сос", alphabet=rus)
     print(encoded_text)
     print(decode(encoded_text, alphabet=rus))
