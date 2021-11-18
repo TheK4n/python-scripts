@@ -1,4 +1,4 @@
-import main
+import math
 
 
 def constrain(val, range_min, range_max):

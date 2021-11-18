@@ -1,7 +1,10 @@
 ### Python template
 
+# Custom
 .idea/
-misc/5_blockchain/blocks/
+/misc/5_blockchain/blocks/
+/misc/9_morse/morse.wav
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -140,4 +143,3 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
-
