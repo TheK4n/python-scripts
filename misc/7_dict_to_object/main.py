@@ -1,8 +1,8 @@
 
 class MyObject:
 
-    def __init__(self, d: dict = None):
-        self._set_attrs(d) if d else None
+    def __init__(self, **kwargs):
+        self._set_attrs(kwargs) if kwargs else None
 
     def _set_attrs(self, d: dict):
         for x, y in d.items():

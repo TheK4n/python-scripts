@@ -1,4 +1,4 @@
-from time import time
+from main import time
 import random
 
 
