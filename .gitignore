@@ -1,7 +1,7 @@
 ### Python template
 
 .idea/
-blockchain/
+misc/5_blockchain/blocks/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

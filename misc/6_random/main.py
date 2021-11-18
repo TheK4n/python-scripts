@@ -2,6 +2,7 @@ import requests
 from datetime import datetime
 from random import random
 
+
 def get_random_list(num: int, min_: int, max_: int) -> list[int]:
     url = f'http://www.random.org/integers/?num={num}&min={min_}&max={max_}&col=1&format=plain&rnd=new&base=10'
 

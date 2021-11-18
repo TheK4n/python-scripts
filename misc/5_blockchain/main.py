@@ -10,7 +10,7 @@ class Corrupted(Exception):
 class Blockchain:
 
     def __init__(self):
-        self.BC_dir = os.path.join(os.curdir, 'blockchain')
+        self.BC_dir = os.path.join(os.curdir, 'blocks')
         if not os.path.exists(self.BC_dir):
             os.mkdir(self.BC_dir)
 
@@ -81,7 +81,7 @@ class Blockchain:
         prev_file = files[-2]  # last file exclusive of plug file
 
         prev_hash = self.get_hash(prev_file)
-        data.update({'hash': prev_hash})  # add hash in end of json
+        data.update({'hash': prev_hash})  # add hash in end of 2_json
 
         corrupted = self.__get_corr_blocks()
         if corrupted:
