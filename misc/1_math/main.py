@@ -25,7 +25,7 @@ def convert(val, old_min, old_max, new_min, new_max):
         return (((val - old_min) * new_range) / old_range) + new_min
 
 
-def triangulator(a, b, delta_dist=25):
+def pelingator(a, b, delta_dist=25):
     a = (a + 360) % 360
     b = (b + 360) % 360
 
@@ -33,4 +33,4 @@ def triangulator(a, b, delta_dist=25):
         delta = abs(360 + a - b)
     else:
         delta = abs(b - a)
-    return round(delta_dist / math.sin(math.radians(delta)), 2)
+    return abs(round(delta_dist / math.sin(math.radians(delta)), 2))
