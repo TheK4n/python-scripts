@@ -3,7 +3,7 @@ import math
 
 class Coordinates:
 
-    class _Phi(float):
+    class Phi(float):
         def __init__(self, phi: float):
             self.__phi = phi
 
@@ -15,7 +15,7 @@ class Coordinates:
 
         if is_polar:
             self.__r = float(x)
-            self.__phi = self._Phi(y)
+            self.__phi = self.Phi(y)
         else:
             self.__x = float(x)
             self.__y = float(y)
@@ -50,7 +50,7 @@ class Coordinates:
 
         polar_cords = self.__cart2pol(self.__x, self.__y)
         self.__r = polar_cords[0]
-        self.__phi = self._Phi(polar_cords[1])
+        self.__phi = self.Phi(polar_cords[1])
         self.__is_polar = True
         return self
 
@@ -68,22 +68,22 @@ class Coordinates:
             return f"{self.__class__.__name__}<(x={self.__x}, y={self.__y})>"
 
     @property
-    def x(self):
+    def x(self) -> float:
         if not self.__is_polar:
             return self.__x
 
     @property
-    def y(self):
+    def y(self) -> float:
         if not self.__is_polar:
             return self.__y
 
     @property
-    def r(self):
+    def r(self) -> float:
         if self.__is_polar:
             return self.__r
 
     @property
-    def phi(self):
+    def phi(self) -> Phi:
         if self.__is_polar:
             return self.__phi
 
