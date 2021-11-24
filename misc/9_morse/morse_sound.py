@@ -21,5 +21,9 @@ def text_to_wav(text: str, speed=1.0, filename="morse.wav"):
     w.save_wav()
 
 
+def wav_to_text(file: str) -> str:
+    pass
+
+
 if __name__ == '__main__':
     text_to_wav(encode("сос сос сос", alphabet=rus), speed=0.5)

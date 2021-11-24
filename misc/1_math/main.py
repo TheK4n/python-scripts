@@ -1,5 +1,3 @@
-import math
-
 
 def constrain(val, range_min, range_max):
     """
@@ -23,14 +21,3 @@ def convert(val, old_min, old_max, new_min, new_max):
     else:
         new_range = new_max - new_min
         return (((val - old_min) * new_range) / old_range) + new_min
-
-
-def pelingator(a, b, delta_dist=25):
-    a = (a + 360) % 360
-    b = (b + 360) % 360
-
-    if a < b:
-        delta = abs(360 + a - b)
-    else:
-        delta = abs(b - a)
-    return abs(round(delta_dist / math.sin(math.radians(delta)), 2))
