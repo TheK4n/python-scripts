@@ -5,7 +5,7 @@ class Coordinates:
 
     class Phi(float):
         def __init__(self, phi: float):
-            self.__phi = phi
+            self.__phi = float(phi)
 
         @property
         def degrees(self):
