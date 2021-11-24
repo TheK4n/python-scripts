@@ -52,4 +52,15 @@ Encodes text to and from morse code:\
 
 **morse_sound.py** creates wav file with morse code from text
 
+
+<a id="chapter-3"></a>
+[<h2>Math</h2>](misc/1_math/coordinates.py)
+
+```python
+c = Coordinates(1, -1)
+print(c.cartesian())  # Coordinates<(x=1.0, y=-1.0)>  cartesian coordiantes
+print(c.polar())  # Coordinates<(r=1.414, phi=-0.785)>  polar coordinates
+print("Degrees:", c.polar().phi.degrees)  # Degrees: -44.977  radians to degrees
+```
+
 <h1 align="center"><a href="#top">▲</a></h1>

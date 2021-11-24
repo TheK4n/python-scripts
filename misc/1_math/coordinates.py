@@ -9,7 +9,7 @@ class Coordinates:
 
         @property
         def degrees(self) -> float:
-            return math.degrees(self.__phi)
+            return round(math.degrees(self.__phi), 3)
 
     def __init__(self, x: float | int, y: float | int, is_polar=False, to_round=3):
 

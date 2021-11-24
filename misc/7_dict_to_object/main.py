@@ -12,9 +12,6 @@ class MyObject:
     def from_dict(self, d: dict):
         return self._set_attrs(d)
 
-    def __call__(self, **kwargs):
-        return self.from_dict(kwargs)
-
     def clear(self):
         self.__dict__.clear()
 
@@ -25,6 +22,5 @@ class MyObject:
 if __name__ == '__main__':
     data = {'a': 5, 'b': 7, 'c': {'c1': 9}, "d": {"d1": list(range(10))}}
 
-    ob = MyObject()
-    ob(**data)
+    ob = MyObject(**data)
     print(ob.d.d1)
