@@ -11,7 +11,7 @@ class RoundHole:
 
     def fits(self, peg: "RoundPeg"):
         if not isinstance(peg, RoundPeg):
-            raise ValueError("Wrong peg!")
+            raise TypeError("Wrong peg!")
         return peg.get_radius() < self.get_radius()
 
 
@@ -49,7 +49,7 @@ if __name__ == '__main__':
     large_sqpeg = SquarePeg(10)
     try:
         hole.fits(small_sqpeg)
-    except ValueError as e:
+    except TypeError as e:
         print(repr(e))
 
     small_sqpeg_adapter = SquarePegAdapter(small_sqpeg)

@@ -13,6 +13,7 @@
 * [RoadMap](#chapter-1)
 * [Dict to Object](#chapter-2)
 * [Morse](#chapter-3)
+* [OOP Patterns](#chapter-4)
 
 
 <a id="chapter-0"></a>
@@ -62,5 +63,6 @@ print(c.cartesian())  # Coordinates<(x=1.0, y=-1.0)>  cartesian coordiantes
 print(c.polar())  # Coordinates<(r=1.414, phi=-0.785)>  polar coordinates
 print("Degrees:", c.polar().phi.degrees)  # Degrees: -44.977  radians to degrees
 ```
+
 
 <h1 align="center"><a href="#top">▲</a></h1>

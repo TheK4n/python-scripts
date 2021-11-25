@@ -89,7 +89,7 @@ class Coordinates:
 
 
 if __name__ == '__main__':
-    c = Coordinates(1, -1)
+    c = Coordinates(-2, 0)
     print(c.cartesian())
     print(c.polar())
     print("Degrees:", c.polar().phi.degrees)

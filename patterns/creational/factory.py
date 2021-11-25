@@ -25,10 +25,11 @@ class LogisticBase(ABC):
 
 class Logistic(LogisticBase):
     def create_transport(self, type_):
-        if type_ == "car":
-            return Car()
-        elif type_ == "boat":
-            return Boat()
+        match type_:
+            case "car":
+                return Car()
+            case "boat":
+                return Boat()
 
 
 if __name__ == '__main__':
