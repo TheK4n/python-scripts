@@ -8,3 +8,4 @@
 
 * Structural
   * Adapter
+  * Bridge

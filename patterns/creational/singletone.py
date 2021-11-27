@@ -1,14 +1,17 @@
+from threading import Lock, Thread
+
+
 class Database:
+    __lock: Lock = Lock()
+
     __instance = None
     is_connected = False
 
     def __new__(cls, *args, **kwargs):
-        if cls.__instance is None:
-            cls.__instance = super().__new__(cls)
+        with cls.__lock:
+            if cls.__instance is None:
+                cls.__instance = super().__new__(cls)
         return cls.__instance
-
-    def __call__(self, *args, **kwargs):
-        print(self, args, kwargs)
 
     def __init__(self, user: str, passwd: str, port: int):
 
@@ -34,7 +37,13 @@ class Database:
         self.is_connected = False
 
 
+def test(user, passwd, port):
+    db = Database(user, passwd, port)
+    print(db.user)
+
+
 if __name__ == '__main__':
-    db = Database('root', 'toor', 1101)
-    db2 = Database('user', '1234', 5221)
-    assert db is db2
+    process1 = Thread(target=test, args=('root', 'toor', 1101))
+    process2 = Thread(target=test, args=('user', '1234', 5221))
+    process1.start()
+    process2.start()
