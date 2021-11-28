@@ -11,6 +11,6 @@ if __name__ == '__main__':
     b1 = Borg()
     b2 = Borg()
 
-    b1.a = {"a": 1, "b": 2}
-    assert b1.a is b2.a
-
+    b1.dict = {"a": 1, "b": 2}
+    assert b1.dict is b2.dict
+    assert b1 is not b2

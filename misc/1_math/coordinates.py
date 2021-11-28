@@ -64,8 +64,7 @@ class Coordinates:
     def __str__(self):
         if self.__is_polar:
             return f"{self.__class__.__name__}<(r={self.__r}, phi={self.__phi})>"
-        else:
-            return f"{self.__class__.__name__}<(x={self.__x}, y={self.__y})>"
+        return f"{self.__class__.__name__}<(x={self.__x}, y={self.__y})>"
 
     @property
     def x(self) -> float:
@@ -92,4 +91,4 @@ if __name__ == '__main__':
     c = Coordinates(-2, 0)
     print(c.cartesian())
     print(c.polar())
-    print("Degrees:", c.polar().phi.degrees)
+    print("Degrees:", c.phi.degrees)

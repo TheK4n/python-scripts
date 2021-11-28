@@ -47,3 +47,9 @@ if __name__ == '__main__':
     process2 = Thread(target=test, args=('user', '1234', 5221))
     process1.start()
     process2.start()
+
+
+if __name__ == '__main__':
+    db1 = Database('root', 'toor', 1101)
+    db2 = Database('user', '1234', 5221)
+    assert db1 is db2
