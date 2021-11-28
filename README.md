@@ -13,7 +13,7 @@
 * [RoadMap](#chapter-1)
 * [Dict to Object](#chapter-2)
 * [Morse](#chapter-3)
-* [OOP Patterns](#chapter-4)
+* [OOP Patterns](patterns)
 
 
 <a id="chapter-0"></a>

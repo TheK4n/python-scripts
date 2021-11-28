@@ -6,11 +6,11 @@ class MyObject:
 
     def _set_attrs(self, d: dict):
         for x, y in d.items():
-            setattr(self, x, self.__class__.from_dict(self, y) if isinstance(y, dict) else y)
+            setattr(self, x, self.__class__.__update(self, **y) if isinstance(y, dict) else y)
         return self
 
-    def from_dict(self, d: dict):
-        return self._set_attrs(d)
+    def __update(self, **kwargs):
+        return self._set_attrs(kwargs)
 
     def clear(self):
         self.__dict__.clear()
