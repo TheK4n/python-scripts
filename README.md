@@ -55,7 +55,7 @@ Encodes text to and from morse code:\
 
 
 <a id="chapter-3"></a>
-[<h2>Math</h2>](misc/1_math/coordinates.py)
+[<h2>Math</h2>](misc/1_math/coordinates/coordinate_system.py)
 
 ```python
 c = Coordinates(1, -1)
