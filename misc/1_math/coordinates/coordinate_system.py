@@ -13,19 +13,24 @@ class Coordinates:
 
     def __init__(self, x: float | int, y: float | int, is_polar=False, to_round=3):
 
-        if is_polar:
-            self.__r = float(x)
-            self.__phi = self.Phi(y)
+        self.__is_polar = is_polar
+
+        if self.__is_polar:
+            self.__phi = self.Phi(x)
+            self.__r = float(y)
         else:
             self.__x = float(x)
             self.__y = float(y)
 
         self.__to_round = to_round
-        self.__is_polar = is_polar
 
     def get(self) -> (float, float):
+        """
+        (x, y)
+        (phi, radius)
+        """
         if self.__is_polar:
-            return self.__r, self.__phi
+            return self.__phi, self.__r
         else:
             return self.__x, self.__y
 
@@ -39,31 +44,24 @@ class Coordinates:
         return self.get()[key]
 
     def __cart2pol(self, x: float, y: float):
-        return round(math.sqrt(x * x + y * y), self.__to_round), round(math.atan2(y, x), self.__to_round)
+        return round(math.atan2(y, x), self.__to_round), round(math.sqrt(x * x + y * y), self.__to_round)
 
     def __pol2cart(self, rho: float, phi: float):
         return round(rho * math.cos(phi), self.__to_round), round(rho * math.sin(phi), self.__to_round)
 
     def polar(self):
-        if self.__is_polar:
-            return self
-
-        polar_cords = self.__cart2pol(self.__x, self.__y)
-        self.__r = polar_cords[0]
-        self.__phi = self.Phi(polar_cords[1])
-        self.__is_polar = True
+        if not self.__is_polar:
+            return self.__class__(*self.__cart2pol(self.__x, self.__y), is_polar=True)
         return self
 
     def cartesian(self):
-        if not self.__is_polar:
-            return self
-        self.__x, self.__y = self.__pol2cart(self.__r, self.__phi)
-        self.__is_polar = False
+        if self.__is_polar:
+            return self.__class__(*self.__pol2cart(self.__r, self.__phi))
         return self
 
     def __str__(self):
         if self.__is_polar:
-            return f"{self.__class__.__name__}<(r={self.__r}, phi={self.__phi})>"
+            return f"{self.__class__.__name__}<(phi={self.__phi}, r={self.__r})>"
         return f"{self.__class__.__name__}<(x={self.__x}, y={self.__y})>"
 
     @property
@@ -88,7 +86,6 @@ class Coordinates:
 
 
 if __name__ == '__main__':
-    c = Coordinates(-2, 0)
-    print(c.cartesian())
-    print(c.polar())
+    c = Coordinates(1, 1).polar()
+    print("Radius:", c.r)
     print("Degrees:", c.phi.degrees)
