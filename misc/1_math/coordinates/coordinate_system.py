@@ -40,21 +40,21 @@ class Coordinates:
     def __iter__(self):
         return iter(self.get())
 
-    def __getitem__(self, key):
+    def __getitem__(self, key) -> float:
         return self.get()[key]
 
-    def __cart2pol(self, x: float, y: float):
+    def __cart2pol(self, x: float, y: float) -> (float, float):
         return round(math.atan2(y, x), self.__to_round), round(math.sqrt(x * x + y * y), self.__to_round)
 
-    def __pol2cart(self, rho: float, phi: float):
+    def __pol2cart(self, rho: float, phi: float) -> (float, float):
         return round(rho * math.cos(phi), self.__to_round), round(rho * math.sin(phi), self.__to_round)
 
-    def polar(self):
+    def polar(self) -> "Coordinates":
         if not self.__is_polar:
             return self.__class__(*self.__cart2pol(self.__x, self.__y), is_polar=True)
         return self
 
-    def cartesian(self):
+    def cartesian(self) -> "Coordinates":
         if self.__is_polar:
             return self.__class__(*self.__pol2cart(self.__r, self.__phi))
         return self
