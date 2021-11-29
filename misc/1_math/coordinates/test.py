@@ -17,19 +17,6 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(clock2az(3), 90)
         self.assertEqual(clock2az(9), 270)
 
-    def test_phi2az(self):
-        self.assertEqual(phi2az(0), 90)
-        self.assertEqual(phi2az(45), 45)
-        self.assertEqual(phi2az(90), 0)
-        self.assertEqual(phi2az(91), 359)
-        self.assertEqual(phi2az(135), 315)
-        self.assertEqual(phi2az(180), 270)
-        self.assertEqual(phi2az(-180), 270)
-        self.assertEqual(phi2az(-135), 225)
-        self.assertEqual(phi2az(-91), 181)
-        self.assertEqual(phi2az(-90), 180)
-        self.assertEqual(phi2az(-45), 135)
-
 
 if __name__ == '__main__':
     unittest.main()

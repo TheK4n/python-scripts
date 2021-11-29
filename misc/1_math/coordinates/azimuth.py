@@ -1,19 +1,3 @@
-def phi2az(val: int | float) -> int:
-    """
-    -180:180 -> 0, 360
-    """
-
-    if val not in range(-180, 181):
-        raise ValueError(f"{val} if out of range")
-
-    val = round(val)
-
-    if val <= 90:
-        return 90 - val
-    elif 90 <= val < 180:  # between 90 and 180
-        return 360 - (val - 90)
-    else:
-        return val + 90
 
 
 def get_direction(azimuth: int) -> str:
