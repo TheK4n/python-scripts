@@ -9,7 +9,7 @@ class Coordinates:
 
         @property
         def degrees(self) -> float:
-            return round(math.degrees(self.__phi), 3)
+            return round(math.degrees(self.__phi) % 360, 3)
 
     def __init__(self, x: float | int, y: float | int, is_polar=False, to_round=3):
 
@@ -91,6 +91,5 @@ class Coordinates:
 
 if __name__ == '__main__':
     c = Coordinates(2, 3).polar()
-    print(c.get())
     print("Radius:", c.r)
     print("Degrees:", c.theta.degrees)
