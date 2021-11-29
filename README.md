@@ -58,10 +58,9 @@ Encodes text to and from morse code:\
 [<h2>Math</h2>](misc/1_math/coordinates/coordinate_system.py)
 
 ```python
-c = Coordinates(1, -1)
-print(c.cartesian())  # Coordinates<(x=1.0, y=-1.0)>  cartesian coordiantes
-print(c.polar())  # Coordinates<(r=1.414, phi=-0.785)>  polar coordinates
-print("Degrees:", c.polar().phi.degrees)  # Degrees: -44.977  radians to degrees
+c = Coordinates(2, 3).polar()
+print("Radius:", c.r)
+print("Degrees:", c.theta.degrees)
 ```
 
 
