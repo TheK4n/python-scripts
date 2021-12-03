@@ -34,9 +34,6 @@ class Coordinates:
         else:
             return self.__x, self.__y
 
-    def __get__(self, instance, owner):
-        return self.get()
-
     def __iter__(self):
         return iter(self.get())
 

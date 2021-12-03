@@ -1,7 +1,9 @@
 
 class MyObject:
+    __shared_state = {}
 
     def __init__(self, **kwargs):
+        self.__dict__ = self.__shared_state
         self._set_attrs(kwargs) if kwargs else None
 
     def _set_attrs(self, d: dict):
@@ -10,14 +12,15 @@ class MyObject:
         return self
 
     def clear(self):
-        self.__dict__.clear()
+        self.__shared_state.clear()
 
     def __str__(self):
-        return f'{self.__class__.__name__}<{self.__dict__}>'
+        return f'{self.__class__.__name__}<{self.__shared_state}>'
 
 
 if __name__ == '__main__':
-    data = {'a': 5, 'b': 7, 'c': {'c1': 9}, "d": {"d1": list(range(10))}}
+    b1 = MyObject(**{"a": [1, 2, 3], "b": 2})
+    b2 = MyObject()
 
-    ob = MyObject(**data)
-    print(ob.d.d1)
+    assert b1.a is b2.a
+    assert b1 is not b2
