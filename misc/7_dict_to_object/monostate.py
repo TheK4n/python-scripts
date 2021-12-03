@@ -23,7 +23,7 @@ if __name__ == '__main__':
     b2 = MyObject()
 
     assert b1.a is b2.a  # is monostate working
-    assert b1 is not b2  # is different instances
+    assert b1 is not b2  # are different instances
 
-    assert b1 is not b1.b  # is different instances
-    assert b1.a is b1.b.a  # is inserted instance is monostate with external
+    assert b1 is not b1.b  # is internal instance is different from external
+    assert b1.a is b1.b.a  # is internal instance is monostate with external
