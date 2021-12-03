@@ -19,8 +19,10 @@ class MyObject:
 
 
 if __name__ == '__main__':
-    b1 = MyObject(**{"a": [1, 2, 3], "b": 2})
+    b1 = MyObject(**{"a": [1, 2, 3], "b": {"b1": 1}})
     b2 = MyObject()
 
     assert b1.a is b2.a
     assert b1 is not b2
+
+    assert b1 is not b1.b

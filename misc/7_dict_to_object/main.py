@@ -21,3 +21,5 @@ if __name__ == '__main__':
 
     ob = MyObject(**data)
     print(ob.d.d1)
+
+    assert ob is not ob.d
