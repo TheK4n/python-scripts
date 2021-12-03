@@ -22,7 +22,8 @@ if __name__ == '__main__':
     b1 = MyObject(**{"a": [1, 2, 3], "b": {"b1": 1}})
     b2 = MyObject()
 
-    assert b1.a is b2.a
-    assert b1 is not b2
+    assert b1.a is b2.a  # is monostate working
+    assert b1 is not b2  # is different instances
 
-    assert b1 is not b1.b
+    assert b1 is not b1.b  # is different instances
+    assert b1.a is b1.b.a  # is inserted instance is monostate with external
