@@ -60,7 +60,7 @@ Encodes text to and from morse code:\
 ```python
 c = Coordinates(2, 3).polar()
 print("Radius:", c.r)
-print("Degrees:", c.theta.degrees)
+print("Degrees:", c.phi.degrees)
 ```
 
 

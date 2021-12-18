@@ -1,23 +1,24 @@
 import math
 
 
+class Phi(float):
+    def __init__(self, phi: float):
+        self.__phi = float(phi)
+
+    @property
+    def degrees(self) -> float:
+        return round(math.degrees(self.__phi) % 360, 3)
+
+
 class Coordinates:
-
-    class Theta(float):
-        def __init__(self, phi: float):
-            self.__phi = float(phi)
-
-        @property
-        def degrees(self) -> float:
-            return round(math.degrees(self.__phi) % 360, 3)
 
     def __init__(self, x: float | int, y: float | int, is_polar=False, to_round=3):
 
         self.__is_polar = is_polar
 
         if self.__is_polar:
-            self.__r = float(x)
-            self.__theta = self.Theta(y)
+            self.__rho = float(x)
+            self.__phi = Phi(y)
         else:
             self.__x = float(x)
             self.__y = float(y)
@@ -30,7 +31,7 @@ class Coordinates:
         (radius, theta) theta in radians
         """
         if self.__is_polar:
-            return self.__r, self.__theta
+            return self.__rho, self.__phi
         else:
             return self.__x, self.__y
 
@@ -56,12 +57,12 @@ class Coordinates:
 
     def cartesian(self) -> "Coordinates":
         if self.__is_polar:
-            return self.__class__(*self.__pol2cart(self.__r, self.__theta))
+            return self.__class__(*self.__pol2cart(self.__rho, self.__phi))
         return self
 
     def __str__(self):
         if self.__is_polar:
-            return f"{self.__class__.__name__}<(r={self.__r}, theta={self.__theta})>"
+            return f"{self.__class__.__name__}<(r={self.__rho}, theta={self.__phi})>"
         return f"{self.__class__.__name__}<(x={self.__x}, y={self.__y})>"
 
     @property
@@ -75,17 +76,17 @@ class Coordinates:
             return self.__y
 
     @property
-    def r(self) -> float:
+    def rho(self) -> float:
         if self.__is_polar:
-            return self.__r
+            return self.__rho
 
     @property
-    def theta(self) -> Theta:
+    def phi(self) -> Phi:
         if self.__is_polar:
-            return self.__theta
+            return self.__phi
 
 
 if __name__ == '__main__':
     c = Coordinates(2, 3).polar()
-    print("Radius:", c.r)
-    print("Degrees:", c.theta.degrees)
+    print("Radius:", c.rho)
+    print("Degrees:", c.phi.degrees)
