@@ -1,12 +1,9 @@
 
 class MyObject:
 
-    def __init__(self, **kwargs):
-        self._set_attrs(kwargs) if kwargs else None
-
-    def _set_attrs(self, d: dict):
+    def set_attrs(self, d: dict):
         for x, y in d.items():
-            setattr(self, x, self.__class__()._set_attrs(y) if isinstance(y, dict) else y)
+            setattr(self, x, self.__class__().set_attrs(y) if isinstance(y, dict) else y)
         return self
 
     def clear(self):
@@ -19,7 +16,8 @@ class MyObject:
 if __name__ == '__main__':
     data = {'a': 5, 'b': 7, 'c': {'c1': 9}, "d": {"d1": list(range(10))}}
 
-    ob = MyObject(**data)
+    ob = MyObject()
+    ob.set_attrs(data)
     print(ob.d.d1)
 
     assert ob is not ob.d
