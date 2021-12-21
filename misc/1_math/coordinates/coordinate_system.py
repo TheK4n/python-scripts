@@ -14,7 +14,12 @@ class Coordinates:
 
     def __init__(self, x: float | int, y: float | int, is_polar=False, to_round=3):
 
-        self.__is_polar = is_polar
+        self.set(x, y, is_polar)
+        self.__to_round = to_round
+
+    def set(self, x: float | int, y: float | int, is_polar=None):
+        
+        self.__is_polar = is_polar if is_polar is not None else self.__is_polar
 
         if self.__is_polar:
             self.__rho = float(x)
@@ -22,8 +27,6 @@ class Coordinates:
         else:
             self.__x = float(x)
             self.__y = float(y)
-
-        self.__to_round = to_round
 
     def get(self) -> (float, float):
         """
@@ -62,28 +65,37 @@ class Coordinates:
 
     def __str__(self):
         if self.__is_polar:
-            return f"{self.__class__.__name__}<(r={self.__rho}, theta={self.__phi})>"
+            return f"{self.__class__.__name__}<(rho={self.__rho}, phi={self.__phi})>"
         return f"{self.__class__.__name__}<(x={self.__x}, y={self.__y})>"
+
+    def __raise_attribute_error(self, attr: str):
+        status = "polar" if self.__is_polar else "cartesian"
+        msg = f"'{self.__class__.__name__} object has no attribute '{attr}'. Seems it in {status} system"
+        raise AttributeError(msg)
 
     @property
     def x(self) -> float:
         if not self.__is_polar:
             return self.__x
+        self.__raise_attribute_error("x")
 
     @property
     def y(self) -> float:
         if not self.__is_polar:
             return self.__y
+        self.__raise_attribute_error("y")
 
     @property
     def rho(self) -> float:
         if self.__is_polar:
             return self.__rho
+        self.__raise_attribute_error("rho")
 
     @property
     def phi(self) -> Phi:
         if self.__is_polar:
             return self.__phi
+        self.__raise_attribute_error("phi")
 
 
 if __name__ == '__main__':

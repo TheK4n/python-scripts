@@ -19,8 +19,7 @@ class Blockchain:
         if len(files) == 0:
             self.__write_genesis()
 
-    @property
-    def corrupted_blocks(self):
+    def check_integrity(self):
         return self.__get_corr_blocks()
 
     def get_hash(self, filename):
@@ -49,10 +48,12 @@ class Blockchain:
         for file in files[1:]:
             with open(os.path.join(self.BC_dir, file)) as f:
                 h = json.load(f)['hash']
-
             prev_file = str(int(file) - 1)
-            actual_hash = self.get_hash(prev_file)
-
+            try:
+                actual_hash = self.get_hash(prev_file)
+            except FileNotFoundError:
+                result.append(prev_file)
+                return result
             if h != actual_hash:
                 result.append(prev_file)
 
@@ -98,5 +99,5 @@ def add_some_blocks(bc: Blockchain):
 
 if __name__ == '__main__':
     BC = Blockchain()
-    add_some_blocks(BC)
-    print(BC.corrupted_blocks)
+    # add_some_blocks(BC)
+    print(BC.check_integrity())
