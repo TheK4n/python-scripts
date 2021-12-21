@@ -8,7 +8,6 @@ class MyObjectMonostate(MyObject):
         self.__dict__ = self.__shared_state
 
 
-"asdklfja;lskdjf;asdfjaslkdflkjajskldfjlkjlk;asdjklfjkl;asjkld;fjkl;akjlsdfjkljkl;asjkldfjklasjkldfjkljkl;asdjkfkasjdfjlkasjdf"
 if __name__ == '__main__':
     b1 = MyObjectMonostate()
     b1.set_attrs({"a": [1, 2, 3], "b": {"b1": 1}})
