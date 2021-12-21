@@ -13,14 +13,14 @@ class Phi(float):
 class Coordinates:
 
     def __init__(self, x: float | int, y: float | int, is_polar=False, to_round=3):
-        
+
         if is_polar is None:
             raise TypeError("Attribute 'is_polar' can`t be NoneType")
         self.set(x, y, is_polar)
         self.__to_round = to_round
 
     def set(self, x: float | int, y: float | int, is_polar=None):
-        
+
         self.__is_polar = is_polar if is_polar is not None else self.__is_polar
 
         if self.__is_polar:
