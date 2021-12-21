@@ -55,12 +55,12 @@ class Coordinates:
     def __pol2cart(self, rho: float, phi: float) -> (float, float):
         return round(rho * math.cos(phi), self.__to_round), round(rho * math.sin(phi), self.__to_round)
 
-    def polar(self) -> "Coordinates":
+    def create_polar(self) -> "Coordinates":
         if not self.__is_polar:
             return self.__class__(*self.__cart2pol(self.__x, self.__y), is_polar=True)
         return self
 
-    def cartesian(self) -> "Coordinates":
+    def create_cartesian(self) -> "Coordinates":
         if self.__is_polar:
             return self.__class__(*self.__pol2cart(self.__rho, self.__phi))
         return self
@@ -101,7 +101,7 @@ class Coordinates:
 
 
 if __name__ == '__main__':
-    c = Coordinates(2, 3).polar()
+    c = Coordinates(2, 3).create_polar()
     print("Radius:", c.rho)
     print("Degrees:", c.phi.degrees)
 
