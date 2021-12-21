@@ -37,14 +37,7 @@ class Coordinates:
         """
         if self.__is_polar:
             return self.__rho, self.__phi
-        else:
-            return self.__x, self.__y
-
-    def __iter__(self):
-        return iter(self.get())
-
-    def __getitem__(self, key) -> float:
-        return self.get()[key]
+        return self.__x, self.__y
 
     def __round(self, value):
         return round(value, self.__to_round)
