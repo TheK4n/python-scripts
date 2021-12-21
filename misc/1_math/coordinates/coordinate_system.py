@@ -13,7 +13,9 @@ class Phi(float):
 class Coordinates:
 
     def __init__(self, x: float | int, y: float | int, is_polar=False, to_round=3):
-
+        
+        if is_polar is None:
+            raise TypeError("Attribute 'is_polar' can`t be NoneType")
         self.set(x, y, is_polar)
         self.__to_round = to_round
 
@@ -31,7 +33,7 @@ class Coordinates:
     def get(self) -> (float, float):
         """
         (x, y)
-        (radius, theta) theta in radians
+        (rho, phi(rad))
         """
         if self.__is_polar:
             return self.__rho, self.__phi
@@ -102,3 +104,4 @@ if __name__ == '__main__':
     c = Coordinates(2, 3).polar()
     print("Radius:", c.rho)
     print("Degrees:", c.phi.degrees)
+
