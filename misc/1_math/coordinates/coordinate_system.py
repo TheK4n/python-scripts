@@ -46,14 +46,17 @@ class Coordinates:
     def __getitem__(self, key) -> float:
         return self.get()[key]
 
+    def __round(self, value):
+        return round(value, self.__to_round)
+
     def __cart2pol(self, x: float, y: float) -> (float, float):
 
-        phi = round(math.atan2(y, x), self.__to_round)
+        phi = self.__round(math.atan2(y, x))
         phi = math.pi * 2 + phi if phi < 0 else phi
-        return round(math.sqrt(x * x + y * y), self.__to_round), round(phi, self.__to_round)
+        return map(self.__round, (math.sqrt(x * x + y * y), phi))
 
     def __pol2cart(self, rho: float, phi: float) -> (float, float):
-        return round(rho * math.cos(phi), self.__to_round), round(rho * math.sin(phi), self.__to_round)
+        return map(self.__round, (rho * math.cos(phi), rho * math.sin(phi)))
 
     def create_polar(self) -> "Coordinates":
         if not self.__is_polar:
