@@ -4,6 +4,7 @@ class MyObject:
     def set_attrs(self, d: dict):
         for x, y in d.items():
             setattr(self, x, self.__class__().set_attrs(y) if isinstance(y, dict) else y)
+        return self
 
     def clear(self):
         self.__dict__.clear()
