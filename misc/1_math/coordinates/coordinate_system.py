@@ -1,13 +1,19 @@
 import math
 
 
-class Phi(float):
-    def __init__(self, phi: float):
-        self.__phi = float(phi)
+class Coord(float):
+    def __str__(self):
+        return str(round(self, 3))
+
+
+class Phi(Coord):
+
+    def __init__(self, value: int | float):
+        self.__phi = Coord(value)
 
     @property
     def degrees(self) -> float:
-        return round(math.degrees(self.__phi) % 360, 3)
+        return Coord(math.degrees(self.__phi) % 360)
 
 
 class Coordinates:
@@ -24,32 +30,31 @@ class Coordinates:
         self.__is_polar = is_polar if is_polar is not None else self.__is_polar
 
         if self.__is_polar:
-            self.__rho = float(x)
+            self.__rho = Coord(x)
             self.__phi = Phi(y)
         else:
-            self.__x = float(x)
-            self.__y = float(y)
+            self.__x = Coord(x)
+            self.__y = Coord(y)
 
-    def get(self) -> (float, float):
+    def get(self) -> (Coord, Coord):
         """
         (x, y)
         (rho, phi(rad))
         """
         if self.__is_polar:
-            return self.__rho, self.__phi
+            return tuple(map(self.__round(self.__rho, self.__phi)))
         return self.__x, self.__y
 
     def __round(self, value):
         return round(value, self.__to_round)
 
     def __cart2pol(self, x: float, y: float) -> (float, float):
-
         phi = self.__round(math.atan2(y, x))
         phi = math.pi * 2 + phi if phi < 0 else phi
-        return map(self.__round, (math.sqrt(x * x + y * y), phi))
+        return math.sqrt(x * x + y * y), phi
 
     def __pol2cart(self, rho: float, phi: float) -> (float, float):
-        return map(self.__round, (rho * math.cos(phi), rho * math.sin(phi)))
+        return rho * math.cos(phi), rho * math.sin(phi)
 
     def create_polar(self) -> "Coordinates":
         if not self.__is_polar:
@@ -63,8 +68,8 @@ class Coordinates:
 
     def __str__(self):
         if self.__is_polar:
-            return f"{self.__class__.__name__}<(rho={self.__rho}, phi={self.__phi})>"
-        return f"{self.__class__.__name__}<(x={self.__x}, y={self.__y})>"
+            return f"{self.__class__.__name__}<(rho={self.__round(self.__rho)}, phi={self.__round(self.__phi)})>"
+        return f"{self.__class__.__name__}<(x={self.__round(self.__x)}, y={self.__round(self.__y)})>"
 
     def __raise_attribute_error(self, attr: str):
         status = "polar" if self.__is_polar else "cartesian"
