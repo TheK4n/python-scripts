@@ -45,11 +45,8 @@ class Coordinates:
             return tuple(map(self.__round(self.__rho, self.__phi)))
         return self.__x, self.__y
 
-    def __round(self, value):
-        return round(value, self.__to_round)
-
     def __cart2pol(self, x: float, y: float) -> (float, float):
-        phi = self.__round(math.atan2(y, x))
+        phi = math.atan2(y, x)
         phi = math.pi * 2 + phi if phi < 0 else phi
         return math.sqrt(x * x + y * y), phi
 
@@ -68,8 +65,8 @@ class Coordinates:
 
     def __str__(self):
         if self.__is_polar:
-            return f"{self.__class__.__name__}<(rho={self.__round(self.__rho)}, phi={self.__round(self.__phi)})>"
-        return f"{self.__class__.__name__}<(x={self.__round(self.__x)}, y={self.__round(self.__y)})>"
+            return f"{self.__class__.__name__}<(rho={self.__rho}, phi={self.__phi})>"
+        return f"{self.__class__.__name__}<(x={self.__x}, y={self.__y})>"
 
     def __raise_attribute_error(self, attr: str):
         status = "polar" if self.__is_polar else "cartesian"
