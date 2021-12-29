@@ -33,14 +33,9 @@ Simple Python scripts by kan.
 
 Example:
 ```python
-ob = MyObject(a="1", b={"c": 2})
-print(ob.b.c)  # 2
-```
-
-```python
 data = {"a": "1", "b": {"c": 2}}
 ob = MyObject()
-ob.from_dict(data)
+ob.set_attrs(data)
 print(ob.b.c)  # 2
 ```
 
@@ -58,8 +53,8 @@ Encodes text to and from morse code:\
 [<h2>Math</h2>](misc/1_math/coordinates/coordinate_system.py)
 
 ```python
-c = Coordinates(2, 3).polar()
-print("Radius:", c.r)
+c = Coordinates(2, 3).create_polar()
+print("Radius:", c.rho)
 print("Degrees:", c.phi.degrees)
 ```
 
