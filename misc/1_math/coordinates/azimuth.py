@@ -5,24 +5,23 @@ def get_direction(azimuth: int) -> str:
 
     if azimuth in range(0, 24):
         return 'north'
-    elif azimuth in range(338, 361):
+    if azimuth in range(338, 361):
         return 'north'
-    elif azimuth in range(24, 76):
+    if azimuth in range(24, 76):
         return 'north-east'
-    elif azimuth in range(76, 113):
+    if azimuth in range(76, 113):
         return 'east'
-    elif azimuth in range(113, 158):
-        return 'south-east'
-    elif azimuth in range(158, 203):
-        return 'south'
-    elif azimuth in range(203, 248):
-        return 'south-west'
-    elif azimuth in range(248, 292):
-        return'west'
-    elif azimuth in range(292, 338):
+    if azimuth in range(113, 158):
+      return 'south-east'
+    if azimuth in range(158, 203):
+      return 'south'
+    if azimuth in range(203, 248):
+      return 'south-west'
+    if azimuth in range(248, 292):
+      return 'west'
+    if azimuth in range(292, 338):
         return 'north-west'
-    else:
-        raise ValueError(f"{azimuth} if out of range")
+    raise ValueError(f"{azimuth} out of range")
 
 
 def az2clock(azimuth: int) -> int:
