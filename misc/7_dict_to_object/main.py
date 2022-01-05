@@ -1,7 +1,7 @@
 
 class MyObject:
 
-    def set_attrs(self, d: dict):
+    def set_attrs(self, d: dict) -> "MyObject":
         for k, v in d.items():
             setattr(self, k, self.__class__().set_attrs(v) if isinstance(v, dict) else v)
         return self
