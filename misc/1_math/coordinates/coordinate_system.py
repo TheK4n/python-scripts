@@ -47,6 +47,7 @@ class Cartesian:
     def y(self) -> Coord:
         return self.__y
 
+
 class Polar:
     def __init__(self, rho: float | int, phi: float | int):
         self.set(rho, phi)
@@ -72,7 +73,7 @@ class Polar:
         return self.__rho
 
     @property
-    def phi(self) -> Coord:
+    def phi(self) -> Phi:
         return self.__phi
 
 

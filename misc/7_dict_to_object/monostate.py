@@ -7,6 +7,9 @@ class MyObjectMonostate(MyObject):
     def __init__(self):
         self.__dict__ = self.__shared_state
 
+    def to_dict(self):
+        raise Exception("monostate!")
+
 
 if __name__ == '__main__':
     b1 = MyObjectMonostate()
