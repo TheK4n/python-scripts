@@ -53,7 +53,7 @@ Encodes text to and from morse code:\
 [<h2>Math</h2>](misc/1_math/coordinates/coordinate_system.py)
 
 ```python
-c = Coordinates(2, 3).create_polar()
+c = Cartesian(2, 3).create_polar()
 print("Radius:", c.rho)
 print("Degrees:", c.phi.degrees)
 ```
