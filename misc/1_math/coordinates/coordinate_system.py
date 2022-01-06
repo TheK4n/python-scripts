@@ -78,8 +78,8 @@ class Polar:
 
 
 if __name__ == '__main__':
-    c = Cartesian(2, 3).create_polar()
-    p = Polar(3, 1).create_cartesian()
-    print("Radius:", c.rho)
-    print("Degrees:", c.phi.degrees)
+    p = Cartesian(2, 3).create_polar()
+    c = p.create_cartesian()
+    print("Radius:", p.rho)
+    print("Degrees:", p.phi.degrees)
 
