@@ -1,9 +1,9 @@
 
 class MyObject:
 
-    def set_attrs(self, d: dict) -> "MyObject":
+    def set(self, d: dict) -> "MyObject":
         for k, v in d.items():
-            setattr(self, k, self.__class__().set_attrs(v) if isinstance(v, dict) else v)
+            setattr(self, k, self.__class__().set(v) if isinstance(v, dict) else v)
         return self
 
     def clear(self):
@@ -23,7 +23,7 @@ if __name__ == '__main__':
     data = {'a': 5, 'b': 7, 'c': {'c1': 9}, "d": {"d1": list(range(10))}}
 
     ob = MyObject()
-    ob.set_attrs(data)
+    ob.set(data)
     print(ob)
     print(ob.to_dict())
 

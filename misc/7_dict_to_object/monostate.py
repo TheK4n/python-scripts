@@ -16,7 +16,7 @@ class MyObjectMonostate(MyObject):
 
 if __name__ == '__main__':
     b1 = MyObjectMonostate()
-    b1.set_attrs({"a": [1, 2, 3], "b": {"b1": 1}})
+    b1.set({"a": [1, 2, 3], "b": {"b1": 1}})
     b2 = MyObjectMonostate()
     print(b2.to_dict())
 

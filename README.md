@@ -35,7 +35,7 @@ Example:
 ```python
 data = {"a": "1", "b": {"c": 2}}
 ob = MyObject()
-ob.set_attrs(data)
+ob.set(data)
 print(ob.b.c)  # 2
 ```
 
