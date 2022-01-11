@@ -30,15 +30,15 @@ class CoordinatesBase(ABC):
         return self._xx, self._yy
 
     def __str__(self):
-        x, y = attr_names
+        x, y = self.attr_names
         return f"{self.__class__.__name__}<({x}={self._xx}, {y}={self._yy})>"
 
 
-class Cartesian(CoordinatesBase):
+class Cartesian2D(CoordinatesBase):
     attr_names = "x", "y"
 
-    def create_polar(self) -> "Polar":
-        return Polar(*self.__convert_to_polar())
+    def create_polar(self) -> "Polar2D":
+        return Polar2D(*self.__convert_to_polar())
 
     def __convert_to_polar(self) -> (float, float):
         x, y = self._xx, self._yy
@@ -55,11 +55,11 @@ class Cartesian(CoordinatesBase):
         return self._yy
 
 
-class Polar(CoordinatesBase):
+class Polar2D(CoordinatesBase):
     attr_name = "rho", "phi"
 
-    def create_cartesian(self) -> "Cartesian":
-        return Cartesian(*self.__convert_to_cart())
+    def create_cartesian(self) -> "Cartesian2D":
+        return Cartesian2D(*self.__convert_to_cart())
 
     def __convert_to_cart(self) -> (float, float):
         rho, phi = self._xx, self._yy
@@ -77,9 +77,129 @@ class Polar(CoordinatesBase):
         return self._yy
 
 
+class Coordinates3DBase(CoordinatesBase):
+    attr_names = "", "", ""
+
+    def __init__(self, x: float | int, y: float | int, z: float | int):
+        self.set(x, y, z)
+
+    def set(self, x: float | int, y: float | int, z: float | int):
+        self._xx, self._yy, self._zz = Coordinate(x), Coordinate(y), Coordinate(z)
+
+    def get(self) -> (Coordinate, Coordinate, Coordinate):
+        return self._xx, self._yy, self._zz
+
+    def __str__(self):
+        x, y, z = self.attr_names
+        return f"{self.__class__.__name__}<({x}={self._xx}, {y}={self._yy}, {z}={self._zz})>"
+
+
+class Cartesian3D(Coordinates3DBase):
+    attr_names = "x", "y", "z"
+
+    def __convert_to_spherical(self) -> (float, float, float):
+        x, y, z = self._xx, self._yy, self._zz
+        return math.sqrt(x*x + y*y + z*z), math.atan(math.sqrt(x*x + y*y) / z), math.atan2(y, x)
+
+    def create_spherical(self) -> "Spherical":
+        return Spherical(*self.__convert_to_spherical())
+
+    def __convert_to_cylindrical(self) -> (float, float, float):
+        x, y, z = self._xx, self._yy, self._zz
+        return math.sqrt(x*x + y*y), math.atan2(y, x), z
+
+    def create_cylindrical(self) -> "Cylindrical":
+        return Cylindrical(*self.__convert_to_cylindrical())
+
+    @property
+    def x(self) -> Coordinate:
+        return self._xx
+
+    @property
+    def y(self) -> Coordinate:
+        return self._yy
+
+    @property
+    def z(self) -> Coordinate:
+        return self._zz
+
+
+class Spherical(Coordinates3DBase):
+    attr_names = "rho", "theta", "phi"
+
+    def set(self, x: float | int, y: float | int, z: float | int):
+        self._xx, self._yy, self._zz = Coordinate(x), Phi(y), Phi(z)
+
+    def __convert_to_cartesian3d(self) -> (float, float, float):
+        rho, theta, phi = self._xx, self._yy, self._zz
+        return rho * math.sin(theta) * math.cos(phi), rho * math.sin(theta) * math.sin(phi), rho * math.cos(theta)
+
+    def create_cartesian3d(self) -> "Cartesian3D":
+        return Cartesian3D(*self.__convert_to_cartesian3d())
+
+    def __convert_to_cylindrical(self) -> (float, float, float):
+        rho, theta, phi = self._xx, self._yy, self._zz
+        return rho * math.sin(theta), theta, phi
+
+    def create_cylindrical(self) -> "Cylindrical":
+        return Cartesian3D(*self.__convert_to_cylindrical())
+
+    @property
+    def rho(self) -> Coordinate:
+        return self._xx
+
+    @property
+    def theta(self) -> Phi:
+        return self._yy
+
+    @property
+    def phi(self) -> Phi:
+        return self._zz
+
+
+class Cylindrical(Coordinates3DBase):
+    attr_names = "rho", "phi", "z"
+
+    def set(self, x: float | int, y: float | int, z: float | int):
+        self._xx, self._yy, self._zz = Coordinate(x), Phi(y), Coordinate(z)
+
+    def __convert_to_cartesian3d(self) -> (float, float, float):
+        rho, phi, z = self._xx, self._yy, self._zz
+        return rho * math.cos(phi), rho * math.sin(phi), z
+
+    def create_cartesian3d(self) -> "Cartesian3D":
+        return Cartesian3D(*self.__convert_to_cartesian3d())
+
+    def __convert_to_spherical(self) -> (float, float, float):
+        rho, phi, z = self._xx, self._yy, self._zz
+        return math.sqrt(rho*rho + z*z), phi, math.atan2(z, rho)
+
+    def create_spherical(self) -> "Spherical":
+        return Cartesian3D(*self.__convert_to_spherical())
+
+    @property
+    def rho(self) -> Coordinate:
+        return self._xx
+
+    @property
+    def phi(self) -> Phi:
+        return self._yy
+
+    @property
+    def z(self) -> Coordinate:
+        return self._zz
+
+
+
 if __name__ == '__main__':
-    p = Cartesian(2, 3).create_polar()
+    p = Cartesian2D(2, 3).create_polar()
     c = p.create_cartesian()
     print("Radius:", p.rho)
     print("Degrees:", p.phi.degrees)
+
+
+    p3d = Spherical(3, math.radians(45), math.radians(45)).create_cartesian3d()
+    print(p3d)
+    print(p3d.create_spherical().create_cylindrical())
+    print(p3d.create_cylindrical().create_spherical())
 
