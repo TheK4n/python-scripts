@@ -37,8 +37,8 @@ class CoordinatesBase(ABC):
 class Cartesian2D(CoordinatesBase):
     attr_names = "x", "y"
 
-    def create_polar(self) -> "Polar2D":
-        return Polar2D(*self.__convert_to_polar())
+    def create_polar(self) -> "Polar":
+        return Polar(*self.__convert_to_polar())
 
     def __convert_to_polar(self) -> (float, float):
         x, y = self._xx, self._yy
@@ -55,7 +55,7 @@ class Cartesian2D(CoordinatesBase):
         return self._yy
 
 
-class Polar2D(CoordinatesBase):
+class Polar(CoordinatesBase):
     attr_name = "rho", "phi"
 
     def create_cartesian(self) -> "Cartesian2D":
@@ -139,10 +139,10 @@ class Spherical(Coordinates3DBase):
 
     def __convert_to_cylindrical(self) -> (float, float, float):
         rho, theta, phi = self._xx, self._yy, self._zz
-        return rho * math.sin(theta), theta, phi
+        return rho * math.sin(theta), theta, rho * math.cos(theta)
 
     def create_cylindrical(self) -> "Cylindrical":
-        return Cartesian3D(*self.__convert_to_cylindrical())
+        return Cylindrical(*self.__convert_to_cylindrical())
 
     @property
     def rho(self) -> Coordinate:
@@ -175,7 +175,7 @@ class Cylindrical(Coordinates3DBase):
         return math.sqrt(rho*rho + z*z), phi, math.atan2(z, rho)
 
     def create_spherical(self) -> "Spherical":
-        return Cartesian3D(*self.__convert_to_spherical())
+        return Spherical(*self.__convert_to_spherical())
 
     @property
     def rho(self) -> Coordinate:
@@ -197,9 +197,8 @@ if __name__ == '__main__':
     print("Radius:", p.rho)
     print("Degrees:", p.phi.degrees)
 
-
-    p3d = Spherical(3, math.radians(45), math.radians(45)).create_cartesian3d()
-    print(p3d)
-    print(p3d.create_spherical().create_cylindrical())
-    print(p3d.create_cylindrical().create_spherical())
+    c3d = Cartesian3D(2, 3, 1)
+    print(c3d.create_cylindrical())
+    print(c3d.create_spherical())
+    print(c3d.create_spherical())
 
