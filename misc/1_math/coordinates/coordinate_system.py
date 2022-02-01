@@ -198,7 +198,7 @@ if __name__ == '__main__':
     print("Degrees:", p.phi.degrees)
 
     c3d = Cartesian3D(2, 3, 1)
+    print(c3d)
     print(c3d.create_cylindrical())
-    print(c3d.create_spherical())
     print(c3d.create_spherical())
 
