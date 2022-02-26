@@ -1,5 +1,3 @@
-
-
 def get_direction(azimuth: int) -> str:
     """Returns direction from azimuth"""
 
@@ -12,13 +10,13 @@ def get_direction(azimuth: int) -> str:
     if azimuth in range(76, 113):
         return 'east'
     if azimuth in range(113, 158):
-      return 'south-east'
+        return 'south-east'
     if azimuth in range(158, 203):
-      return 'south'
+        return 'south'
     if azimuth in range(203, 248):
-      return 'south-west'
+        return 'south-west'
     if azimuth in range(248, 292):
-      return 'west'
+        return 'west'
     if azimuth in range(292, 338):
         return 'north-west'
     raise ValueError(f"{azimuth} out of range")

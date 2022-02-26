@@ -190,7 +190,6 @@ class Cylindrical(Coordinates3DBase):
         return self._zz
 
 
-
 if __name__ == '__main__':
     p = Cartesian2D(2, 3).create_polar()
     c = p.create_cartesian()
@@ -201,4 +200,3 @@ if __name__ == '__main__':
     print(c3d)
     print(c3d.create_cylindrical())
     print(c3d.create_spherical())
-
