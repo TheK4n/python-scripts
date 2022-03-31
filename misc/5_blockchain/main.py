@@ -1,6 +1,7 @@
 import json
 import os
 import hashlib
+from random import randint
 
 
 class Corrupted(Exception):
@@ -22,12 +23,16 @@ class Blockchain:
     def check_integrity(self):
         return self.__get_corr_blocks()
 
+    @staticmethod
+    def __get_hash(data: str) -> str:
+        return hashlib.sha256(data.encode()).hexdigest()
+
     def get_hash(self, filename):
         """
         Returns md5 hash of file
         """
-        file = open(os.path.join(self.BC_dir, filename), 'rb').read()
-        return hashlib.md5(file).hexdigest()
+        data = open(os.path.join(self.BC_dir, filename), 'rb').read().decode()
+        return self.__get_hash(data)
 
     def get_files(self):
         """
@@ -61,12 +66,7 @@ class Blockchain:
 
     def __write_json(self, filename: str, data: dict):
         with open(os.path.join(self.BC_dir, filename), 'w') as file:
-            json.dump(data, file, indent=4, ensure_ascii=False)
-
-    def __write_plug(self):
-        prev_file = self.get_files()[-1]
-        filename = str(int(prev_file) + 1)
-        self.__write_json(filename, {"name": "plug", "hash": self.get_hash(prev_file)})
+            file.write(json.dumps(data))
 
     def __write_genesis(self):
         data = {
@@ -74,25 +74,39 @@ class Blockchain:
             'hash': None
         }
 
+        data.update({"pow": self.__find_pow(data)})
+
         self.__write_json('0', data)
-        self.__write_plug()
+
+    def __find_pow(self, local_data: dict, difficult: int = 4) -> int:
+        chars = "0" * difficult
+        pow_number = randint(100, 1000000)
+        while True:
+            local_data.update({"pow": pow_number})
+            if self.__get_hash(json.dumps(local_data)).startswith(chars):
+                return pow_number
+            pow_number += 1
 
     def write_block(self, data: dict):
         files = self.get_files()
-        prev_file = files[-2]  # last file exclusive of plug file
+        prev_file = files[-1]
 
         prev_hash = self.get_hash(prev_file)
         data.update({'hash': prev_hash})  # add hash in end of 2_json
+        data.update({"pow": self.__find_pow(data)})
 
         corrupted = self.__get_corr_blocks()
         if corrupted:
             raise Corrupted(corrupted)
-        self.__write_json(files[-1], data)  # rewrite plug file
-        self.__write_plug()
+
+        prev_file = self.get_files()[-1]
+        filename = str(int(prev_file) + 1)
+
+        self.__write_json(filename, data)
 
 
 def add_some_blocks(bc: Blockchain):
-    creditors = {'danya': 300, 'anya': -2000, 'pasha': 800, 'vasya': 100}
+    creditors = {'danya': 300, 'anya': 2000, 'pasha': 800, 'vasya': 100}
     for k, v in creditors.items():
         bc.write_block({'name': k, "amount": v, "to": "me"})
 
