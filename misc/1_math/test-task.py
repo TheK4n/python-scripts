@@ -3,7 +3,7 @@ import math
 
 class sum(int):
     def __call__(self, x=0):
-        return sum(self + x)
+        return self.__class__(self + x)
 
 
 assert sum(5) == 5
