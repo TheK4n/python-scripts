@@ -2,7 +2,7 @@
 
 # Custom
 .idea/
-/misc/5_blockchain/blocks/
+/misc/05_blockchain/blocks/
 /misc/9_morse/morse.wav
 
 # Byte-compiled / optimized / DLL files
