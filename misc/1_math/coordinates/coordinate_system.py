@@ -8,13 +8,9 @@ class Coordinate(float):
 
 
 class Phi(Coordinate):
-
-    def __init__(self, value: int | float):
-        self.__phi = Coordinate(value)
-
     @property
     def degrees(self) -> Coordinate:
-        return Coordinate(math.degrees(self.__phi) % 360)
+        return Coordinate(math.degrees(self) % 360)
 
 
 class CoordinatesBase(ABC):
