@@ -29,7 +29,7 @@ Simple Python scripts by kan.
 
 
 <a id="chapter-2"></a>
-[<h2>Dict to Object</h2>](misc/7_dict_to_object/)
+[<h2>Dict to Object</h2>](misc/07_dict_to_object/)
 
 Example:
 ```python
@@ -41,7 +41,7 @@ print(ob.b.c)  # 2
 
 
 <a id="chapter-3"></a>
-[<h2>Morse</h2>](misc/9_morse/)
+[<h2>Morse</h2>](misc/09_morse/)
 
 Encodes text to and from morse code:\
 ```--.. -. -.--``` -> ```zny```
@@ -50,7 +50,7 @@ Encodes text to and from morse code:\
 
 
 <a id="chapter-3"></a>
-[<h2>Math</h2>](misc/1_math/coordinates/coordinate_system.py)
+[<h2>Math</h2>](misc/01_math/coordinates/coordinate_system.py)
 
 ```python
 c = Cartesian(2, 3).create_polar()
