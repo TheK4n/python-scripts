@@ -5,7 +5,7 @@
     <img src="https://img.shields.io/github/followers/TheK4n?label=Follow&style=social">
   </a>
   <a href="https://github.com/TheK4n/scripts">
-    <img src="https://img.shields.io/github/stars/TheK4n/scripts?style=social">
+    <img src="https://img.shields.io/github/stars/TheK4n/python-scripts?style=social">
   </a>
 </p>
 
