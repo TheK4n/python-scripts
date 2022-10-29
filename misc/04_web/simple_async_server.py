@@ -1,6 +1,9 @@
 import socket
-from select import select
+import selectors
 import json
+
+
+selector = selectors.DefaultSelector()
 
 
 class ResponseFormatter:
@@ -66,7 +69,8 @@ class Server:
         self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # AF_INET - ipv4, SOCK_STREAM - tcp
         self.server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)  # set option: re-use addr True
 
-        self.__sockets_to_monitor = []
+        selector.register(fileobj=self.server_socket, events=selectors.EVENT_READ, data=self.__accept_connection)
+
 
     def add_route(self, path: str, handler: callable):
         self._response_generator.add_route(path, handler)
@@ -76,10 +80,11 @@ class Server:
         self.server_socket.listen()
         print("Server started at", *self._socket_params)
 
-    def __accept_connection(self):
-        client_socket, addr = self.server_socket.accept()
+    def __accept_connection(self, server_socket):
+        client_socket, addr = server_socket.accept()
         print("Accept from", *addr)
-        self.__sockets_to_monitor.append(client_socket)
+
+        selector.register(fileobj=client_socket, events=selectors.EVENT_READ, data=self.__handle_client)
 
     def __handle_client(self, client_socket):
         request = client_socket.recv(4096)
@@ -91,22 +96,19 @@ class Server:
 
             response = self._response_generator.generate_by_path(method, path)
             client_socket.sendall(response)
+        selector.unregister(client_socket)
         client_socket.close()
-        self.__sockets_to_monitor.remove(client_socket)
 
     def start_polling(self):
 
         self.__listen()
-        self.__sockets_to_monitor.append(self.server_socket)
 
         while True:
-            ready_to_read, _, _ = select(self.__sockets_to_monitor, [], [])
+            events = selector.select()
 
-            for sock in ready_to_read:
-                if sock is self.server_socket:
-                    self.__accept_connection()
-                else:
-                    self.__handle_client(sock)
+            for key, _ in events:
+                callback = key.data
+                callback(key.fileobj)
 
 
 def route_root():
