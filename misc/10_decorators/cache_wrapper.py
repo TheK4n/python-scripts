@@ -1,3 +1,5 @@
+import functools
+
 
 cached_results = {}
 
