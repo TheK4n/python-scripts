@@ -1,42 +1,46 @@
+from typing import Callable
 
-KEYS = {}
+
+__OVERLOADED_FUNCTIONS: dict[tuple[str, tuple[type]], Callable] = {}
 
 
 def overload(func):
-    global KEYS
+    annotations = func.__annotations__.copy()
+    if "return" in annotations:
+        del annotations["return"]
 
-    types = tuple(func.__annotations__.values())
-    func_key = (func.__name__, types)
-    KEYS[func_key] = func
+    types = tuple(annotations.values())
+    func_name = f"{func.__module__}.{func.__name__}"
+    key = (func_name, types)
+    __OVERLOADED_FUNCTIONS[key] = func
 
     def inner(*args, **kwargs):
-        global KEYS
-
         arguments = args + tuple(kwargs.values())
         types = tuple(map(type, arguments))
-        func_key = (inner.__name__, types)
+        func_name = f"{func.__module__}.{func.__name__}"
+        key = (func_name, types)
 
-        saved_func = KEYS[func_key]
+        saved_func = __OVERLOADED_FUNCTIONS[key]
         res = saved_func(*args, **kwargs)
 
         return res
-    inner.__name__ = func.__name__
 
+    inner.__name__ = func.__name__
     return inner
 
 
 @overload
-def append(a: str, b: str):
+def some_func(a: str, b: str):
     return a + b
 
 
 @overload
-def append(a: int, b: int):
+def some_func(a: int, b: int):
     return a / b
 
 
 @overload
-def append(a: str, b: int):
+def some_func(a: str, b: int):
     return a * b
 
 
@@ -45,8 +49,11 @@ def some(a: int, b: int):
     return a + b
 
 
-assert append("huy", 2) == "huyhuy"
-assert append("da", "net") == "danet"
-assert append(24, 2) == 12
-assert append("da ", 3) == "da da da "
+assert some_func("La", 2) == "LaLa"
+assert some_func("Yes", "No") == "YesNo"
+assert some_func(24, 2) == 12
+assert some_func("La ", 3) == "La La La "
+assert some(5, 3) == 8
+
+print(__OVERLOADED_FUNCTIONS)
 
