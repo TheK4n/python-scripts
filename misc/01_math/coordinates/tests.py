@@ -1,6 +1,6 @@
 import unittest
 from azimuth import az2clock, clock2az
-from coordinate_system import Cylindrical, Spherical, Cartesian3D, Cartesian2D, Polar
+from coordinate_system import Cartesian2D, Polar
 
 
 class TestClock(unittest.TestCase):
@@ -24,15 +24,11 @@ class TestCoordinateSystem2D(unittest.TestCase):
         self.cartesian = Cartesian2D(2, 3)
         self.polar = Polar(2, 3)
 
-        self.cart2polar_values = self.cartesian.create_polar().get()
-        self.pol2cart_values = self.polar.create_cartesian().get()
-
-    def testInstance(self):
-        self.assertIsInstance(self.cartesian.create_polar(), Polar)
-        self.assertIsInstance(self.polar.create_cartesian(), Cartesian2D)
+        self.cart2polar = self.polar.from_cartesian(self.cartesian)
+        self.pol2cart_values = self.cartesian.from_polar(self.polar)
 
     def testEquals(self):
-        self.assertEqual(self.cartesian.create_polar().get(), (2, 3))
+        self.assertEqual(self.cartesian.from_polar(self.polar.from_cartesian(self.cartesian)), (2, 3))
 
 
 if __name__ == '__main__':

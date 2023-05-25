@@ -1,30 +1,40 @@
+from collections import UserDict
+from keyword import iskeyword
+from typing import Hashable
 
-class MyObject:
 
-    def set(self, d: dict) -> "MyObject":
+class NamedDict(UserDict):
+
+    def __setitem__(self, key: Hashable, item):
+        if isinstance(key, str):
+            if iskeyword(key) or not key.isidentifier() or key == "data":
+                key = "_" + key
+            setattr(self, key, self.__class__(item) if isinstance(item, dict) else item)
+        super().__setitem__(key, item)
+
+    def update(self, d: dict):
         for k, v in d.items():
-            setattr(self, k, self.__class__().set(v) if isinstance(v, dict) else v)
-        return self
-
-    def clear(self):
-        self.__dict__.clear()
-
-    def to_dict(self) -> dict:
-        res = {}
-        for k, v in self.__dict__.items():
-            res[k] = self.__class__.to_dict(v) if isinstance(v, self.__class__) else v
-        return res
+            self[k] = v
 
     def __str__(self):
-        return f'{self.__class__.__name__}<{self.__dict__}>'
+        return f"{self.__class__.__name__}({self.data})"
 
 
 if __name__ == '__main__':
-    data = {'a': 5, 'b': 7, 'c': {'c1': 9}, "d": {"d1": list(range(10))}}
+    data = {
+        'for': 5,
+        '1b': 'ni',
+        'b': 7,
+        'c': {
+            'c1': 9
+        },
+        "d": {
+            "d1": [1, 2, 3]
+        }
+    }
 
-    ob = MyObject()
-    ob.set(data)
+    ob = NamedDict(data)
     print(ob)
-    print(ob.to_dict())
 
     assert ob is not ob.d
+

@@ -24,12 +24,14 @@ class LogisticBase(ABC):
 
 
 class Logistic(LogisticBase):
-    def create_transport(self, type_):
+    def create_transport(self, type_: str) -> Transport:
         match type_:
             case "car":
                 return Car()
             case "boat":
                 return Boat()
+            case _:
+                raise ValueError
 
 
 if __name__ == '__main__':
