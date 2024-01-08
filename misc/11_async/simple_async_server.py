@@ -1,6 +1,7 @@
 import socket
 import selectors
 import json
+from typing import Callable
 
 
 selector = selectors.DefaultSelector()
@@ -21,7 +22,7 @@ class ResponseGenerator:
     def __init__(self):
         self.__routes = {}
 
-    def add_route(self, path: str, handler: callable):
+    def add_route(self, path: str, handler: Callable):
         self.__routes[path] = handler
 
     def __generate_content(self, code: int, path: str) -> str:
@@ -31,7 +32,7 @@ class ResponseGenerator:
             return '{"status": "Not allowed"}'
         return json.dumps(self.__routes[path]())
 
-    def __generate_headers(self, method: str, path: str) -> (str, int):
+    def __generate_headers(self, method: str, path: str) -> tuple[str, int]:
 
         response_formatter = ResponseFormatter()
 
@@ -52,7 +53,7 @@ class ResponseGenerator:
 class RequestParser:
 
     @staticmethod
-    def parse(request: bytes) -> (str, str):
+    def parse(request: bytes) -> tuple[str, str]:
         try:
             method, path, *_ = request.decode("utf-8").split(" ")
         except ValueError:
@@ -61,8 +62,7 @@ class RequestParser:
 
 
 class Server:
-    def __init__(self,
-                 socket_params = ("localhost", 8000)):
+    def __init__(self, socket_params=("localhost", 8000)):
         self._socket_params = socket_params
         self._response_generator = ResponseGenerator()
 
@@ -71,8 +71,7 @@ class Server:
 
         selector.register(fileobj=self.server_socket, events=selectors.EVENT_READ, data=self.__accept_connection)
 
-
-    def add_route(self, path: str, handler: callable):
+    def add_route(self, path: str, handler: Callable):
         self._response_generator.add_route(path, handler)
 
     def __listen(self):
@@ -114,6 +113,7 @@ class Server:
 def route_root():
     return {"status": "ok"}
 
+
 def calculate_some():
     return {"result": 200+200}
 
@@ -123,4 +123,3 @@ if __name__ == "__main__":
     server.add_route("/", route_root)
     server.add_route("/calc", calculate_some)
     server.start_polling()
-
